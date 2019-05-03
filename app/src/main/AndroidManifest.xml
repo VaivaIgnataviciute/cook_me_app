@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hfad.cookmeapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/cookme_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/cookme_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Healthy2Activity"></activity>
+        <activity android:name=".Dessert2Activity" />
+        <activity android:name=".Dinner2CategoryActivity" />
+        <activity android:name=".Dinner2Activity" />
+        <activity android:name=".Breakfast2CategoryActivity" />
+        <activity android:name=".Breakfast2Activity" />
+        <activity android:name=".HealthyActivity" />
+        <activity android:name=".HealthyCategoryActivity" />
+        <activity android:name=".DessertCategoryActivity" />
+        <activity android:name=".DessertActivity" />
+        <activity android:name=".DinnerActivity" />
+        <activity android:name=".DinnerCategoryActivity" />
+        <activity android:name=".BreakfastActivity" />
+        <activity android:name=".BreakfastCategoryActivity" />
+        <activity android:name=".Intro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ActivityHome" />
+    </application>
+
+</manifest>

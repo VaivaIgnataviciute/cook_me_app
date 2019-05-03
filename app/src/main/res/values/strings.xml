@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CookMe app</string>
+
+    <string-array name="categories">
+        <item>Breakfast</item>
+        <item>Dinner</item>
+        <item>Desserts</item>
+        <item>Healthy</item>
+
+    </string-array>
+</resources>
