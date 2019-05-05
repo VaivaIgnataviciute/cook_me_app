@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
   public class   CookmeappDatabaseHelper extends SQLiteOpenHelper {
 
       private static final String DB_NAME = "cookmeapp"; //the name of the database
-      private  static final int DB_VERSION = 12; //version of the database.Changing the version number to  a larger integer enables upgrade database.
+      private  static final int DB_VERSION = 13; //version of the database.Changing the version number to  a larger integer enables upgrade database.
 
     CookmeappDatabaseHelper(Context context) {
 
@@ -119,15 +119,10 @@ import android.database.sqlite.SQLiteDatabase;
 
         }
 
-        if ( oldVersion <12 && newVersion == 12 ) {
+        if ( oldVersion <13 && newVersion == 13 ) {
 
-            insertDinner(db, "Farfalle pasta", "bow tie pasta for its shape, farfalle (the Italian word for butterfly) makes a great cold pasta salad, and can also dress up a warm bowl of meat and veggies",R.drawable.dinner);
-            insertDessert(db, "Five fruit pie ", "Fruit pies may be served with a scoop of ice cream, a style known in North America as pie à la mode.",R.drawable.dessert);
-            insertDessert(db, "Chocolate brownies ", "A chocolate brownie is a square, baked, chocolate dessert that will melt your heart.",R.drawable.dessert_brownie);
-            insertHealthy(db, "Berries smoothie", "This simple berry smoothie works as a light breakfast or a delicious snack and is a delightful way to enjoy fresh or frozen berries",R.drawable.healthy_smoothie);
-            insertHealthy(db, "Chia  outmeal", "This chia oatmeal breakfast bowl is packed with all sorts of good stuff to keep you full and energized",R.drawable.healthy);
-            insertBreakfast(db, "Crepes", "Soft, buttery, delicious, and infinitely versatile as a sweet or savory option for breakfast, brunch, lunch, dinner or dessert!",R.drawable.breakfast_pancakes);
-            insertDinner(db, "Beef burger", "Home made delicious beef angus burger with fresh paties",R.drawable.dinner_burger);
+
+            insertBreakfast(db, "French Omellete", "A classic French omelette has a smooth, silky exterior with little to no browning that cradles a tender, moist, soft-scrambled interior.",R.drawable.omellet);
 
 
 
