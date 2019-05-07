@@ -94,15 +94,16 @@
             app:itemTextColor="@color/colorPrimaryDark"
             app:menu="@menu/bottom_nav_menu" >
 
-            <!--<View
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="4dp"
                 android:layout_above="@id/bottom_navigation"
                 android:background="@drawable/shadow"/>
-                -->
+
 
 
     </android.support.design.widget.BottomNavigationView>
+
     </android.support.design.widget.AppBarLayout>
 
 

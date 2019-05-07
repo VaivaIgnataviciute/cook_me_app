@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
   public class   CookmeappDatabaseHelper extends SQLiteOpenHelper {
 
       private static final String DB_NAME = "cookmeapp"; //the name of the database
-      private  static final int DB_VERSION = 13; //version of the database.Changing the version number to  a larger integer enables upgrade database.
+      private  static final int DB_VERSION = 14; //version of the database.Changing the version number to  a larger integer enables upgrade database.
 
     CookmeappDatabaseHelper(Context context) {
 
@@ -119,11 +119,13 @@ import android.database.sqlite.SQLiteDatabase;
 
         }
 
-        if ( oldVersion <13 && newVersion == 13 ) {
+        if ( oldVersion <14 && newVersion == 14 ) {
 
 
-            insertBreakfast(db, "French Omellete", "A classic French omelette has a smooth, silky exterior with little to no browning that cradles a tender, moist, soft-scrambled interior.",R.drawable.omellet);
-
+            db.execSQL("ALTER TABLE BREAKFAST ADD COLUMN FAVORITE NUMERIC;");
+            db.execSQL("ALTER TABLE DINNER ADD COLUMN FAVORITE NUMERIC;");
+            db.execSQL("ALTER TABLE DESSERTS ADD COLUMN FAVORITE NUMERIC;");
+            db.execSQL("ALTER TABLE HEALTHY ADD COLUMN FAVORITE NUMERIC;");
 
 
 

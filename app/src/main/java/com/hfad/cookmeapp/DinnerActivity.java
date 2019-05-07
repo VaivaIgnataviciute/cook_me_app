@@ -1,8 +1,12 @@
 package com.hfad.cookmeapp;
 
+import android.content.ContentValues;
+import android.database.SQLException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +41,7 @@ public class DinnerActivity extends AppCompatActivity {
 
             SQLiteDatabase db = CookmeappDatabaseHelper.getReadableDatabase();
             Cursor cursor = db.query("DINNER",
-                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID"},
+                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID","FAVORITE"},
                     "_id =?",
                     new String[]{Integer.toString(dinnerId)},
                     null, null, null);
@@ -51,6 +55,7 @@ public class DinnerActivity extends AppCompatActivity {
                 String nameTextDinner = cursor.getString(0);
                 String descriptionTextDinner = cursor.getString(1);
                 int photoIdDinner = cursor.getInt(2);
+                boolean isFavorite = (cursor.getInt(3) == 1);
 
                 //Populating the dinner name
                 TextView name = findViewById(R.id.nameDinner);
@@ -66,11 +71,39 @@ public class DinnerActivity extends AppCompatActivity {
                 ImageView photoDinner = findViewById(R.id.photoDinner);
                 photoDinner.setImageResource(photoIdDinner);
                 photoDinner.setContentDescription(nameTextDinner);
+
+                CheckBox favorite = findViewById(R.id.favorite);
+                favorite.setChecked(isFavorite);
             }
 
             cursor.close();
             db.close();
         } catch (SQLiteException e) {
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
+    public void onFavoriteClicked (View view){
+        int dinnerId =(Integer) getIntent().getExtras().get(EXTRA_DINNERID);
+
+        //get the value of the checkbox
+
+        CheckBox favorite = findViewById(R.id.favorite);
+        ContentValues dinnerValues = new ContentValues();
+        dinnerValues.put("FAVORITE", favorite.isChecked());
+
+        //get a reference to the database and update the favorite column
+
+        SQLiteOpenHelper CookmeappDatabaseHelper = new CookmeappDatabaseHelper(this);
+
+        try{
+            SQLiteDatabase db = CookmeappDatabaseHelper.getReadableDatabase();
+
+            db.update("DINNER",dinnerValues, "_id=?",new String[] {Integer.toString(dinnerId)});
+            db.close();
+
+        } catch (SQLException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }

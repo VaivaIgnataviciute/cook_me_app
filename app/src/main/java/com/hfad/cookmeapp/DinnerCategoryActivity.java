@@ -1,6 +1,8 @@
 package com.hfad.cookmeapp;
 
 import android.app.AlertDialog;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.app.Activity;
@@ -8,6 +10,7 @@ import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -85,6 +88,29 @@ public class DinnerCategoryActivity extends AppCompatActivity {
         //Assign the listener to the list view
 
         list_dinner.setOnItemClickListener(itemClickListener);
+
+        //creating intents to launch activities for bottom navigation icons
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                int id = menuItem.getItemId();
+
+                if (id ==  R.id.action_favorite){
+                    Intent favHome = new Intent(DinnerCategoryActivity.this, FavoritesActivity.class);
+                    DinnerCategoryActivity.this.startActivity(favHome);
+                    return true;
+                }
+
+                if (id == R.id.action_home) {
+                    Intent navHome = new Intent(DinnerCategoryActivity.this, ActivityHome.class);
+                    DinnerCategoryActivity.this.startActivity(navHome);
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
