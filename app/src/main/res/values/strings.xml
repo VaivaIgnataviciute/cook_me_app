@@ -2,13 +2,19 @@
     <string name="app_name">CookMe app</string>
     <string name="favorite">Favorite</string>
     <string name="favorites">Your favorite drinks</string>
+    <string name="instructionsCrepesStep1">1.In a blender, combine the milk, eggs, butter, sugar, vanilla, salt and flour. Mix until batter is smooth (about 15-20 seconds).</string>
+    <string name="instructionsCrepesStep2">2.Spray non-stick cooking spray onto a 8 inch frying pan.</string>
+    <string name="instructionsCrepesStep3">3.Cook for about 1-2 minutes per side, or until lightly browned.</string>
+    <string name="instructionsOmelleteStep1">1.Beat eggs, water, salt and pepper in small bowl until blended.</string>
+    <string name="instructionsOmelleteStep2">2.Heat butter in 6 to 8-inch nonstick omelet pan or skillet over medium-high heat until hot. TILT pan to coat bottom. POUR IN egg mixture. Mixture should set immediately at edges.</string>
+    <string name="instructionsOmelleteStep3">3.Gently cooked portions from edges toward the center with inverted turner so that uncooked eggs can reach the hot pan surface. CONTINUE cooking, tilting pan and gently moving cooked portions as needed.</string>
+
 
     <string-array name="categories">
         <item>Breakfast</item>
         <item>Dinner</item>
         <item>Desserts</item>
         <item>Healthy</item>
-
 
     </string-array>
 </resources>

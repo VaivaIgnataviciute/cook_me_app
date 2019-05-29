@@ -15,9 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import  android.database.sqlite.SQLiteException;
-import  android.database.sqlite.SQLiteOpenHelper;
-import  android.widget.SimpleCursorAdapter;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class HealthyCategoryActivity extends AppCompatActivity {
@@ -49,8 +49,8 @@ public class HealthyCategoryActivity extends AppCompatActivity {
 
             //creating cursor
             cursor = db.query("HEALTHY",
-                    new String[]{"_id","NAME"},
-                    null,null,null,null,null);
+                    new String[]{"_id", "NAME"},
+                    null, null, null, null, null);
 
             Log.d("cursor2", String.valueOf(cursor.getCount()));
 
@@ -58,7 +58,7 @@ public class HealthyCategoryActivity extends AppCompatActivity {
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"NAME"},
-                    new int[] {android.R.id.text1},
+                    new int[]{android.R.id.text1},
                     0);
 
             //set the adapter to the listview
@@ -98,7 +98,7 @@ public class HealthyCategoryActivity extends AppCompatActivity {
 
                 int id = menuItem.getItemId();
 
-                if (id ==  R.id.action_favorite){
+                if (id == R.id.action_favorite) {
                     Intent favHome = new Intent(HealthyCategoryActivity.this, FavoritesActivity.class);
                     HealthyCategoryActivity.this.startActivity(favHome);
                     return true;
@@ -113,10 +113,10 @@ public class HealthyCategoryActivity extends AppCompatActivity {
             }
         });
 
-        }
+    }
 
     @Override
-    public void onDestroy (){
+    public void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();

@@ -17,9 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import  android.database.sqlite.SQLiteException;
-import  android.database.sqlite.SQLiteOpenHelper;
-import  android.widget.SimpleCursorAdapter;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class DinnerCategoryActivity extends AppCompatActivity {
@@ -50,14 +50,14 @@ public class DinnerCategoryActivity extends AppCompatActivity {
 
             //creating cursor
             cursor = db.query("DINNER",
-                    new String[]{"_id","NAME"},
-                    null,null,null,null,null);
+                    new String[]{"_id", "NAME"},
+                    null, null, null, null, null);
 
             //creating cursor adapter and map the contents of the NAME column to the text in the Listview
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"NAME"},
-                    new int[] {android.R.id.text1},
+                    new int[]{android.R.id.text1},
                     0);
 
             //set the adapter to the listview
@@ -97,7 +97,7 @@ public class DinnerCategoryActivity extends AppCompatActivity {
 
                 int id = menuItem.getItemId();
 
-                if (id ==  R.id.action_favorite){
+                if (id == R.id.action_favorite) {
                     Intent favHome = new Intent(DinnerCategoryActivity.this, FavoritesActivity.class);
                     DinnerCategoryActivity.this.startActivity(favHome);
                     return true;
@@ -115,7 +115,7 @@ public class DinnerCategoryActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy (){
+    public void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();

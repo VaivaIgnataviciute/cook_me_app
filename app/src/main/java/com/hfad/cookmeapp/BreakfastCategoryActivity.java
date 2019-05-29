@@ -15,9 +15,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import  android.database.sqlite.SQLiteException;
-import  android.database.sqlite.SQLiteOpenHelper;
-import  android.widget.SimpleCursorAdapter;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class BreakfastCategoryActivity extends AppCompatActivity {
@@ -40,41 +40,41 @@ public class BreakfastCategoryActivity extends AppCompatActivity {
         toolbar.setLogo(R.mipmap.cookme_logo);
 
 
-
         //I am creating on click listeners for list_breakfast,
         ListView list_breakfast = findViewById(R.id.list_breakfast);
-       SQLiteOpenHelper cookmeappDatabaseHelper = new CookmeappDatabaseHelper(this);
-       try {
+        SQLiteOpenHelper cookmeappDatabaseHelper = new CookmeappDatabaseHelper(this);
+        try {
 
-           //referencing database
+            //referencing database
             db = cookmeappDatabaseHelper.getReadableDatabase();
 
             //creating cursor
             cursor = db.query("BREAKFAST",
-                    new String[]{"_id","NAME"},
-                    null,null,null,null,null);
+                    new String[]{"_id", "NAME"},
+                    null, null, null, null, null);
 
             //creating cursor adapter and map the contents of the NAME column to the text in the Listview
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"NAME"},
-                    new int[] {android.R.id.text1},
+                    new int[]{android.R.id.text1},
                     0);
 
             //set the adapter to the listview
             list_breakfast.setAdapter(listAdapter);
 
             //display a toast message to the user if there was a problem with database
-       } catch (SQLException e) {
-           Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-           toast.show();
-       }
+        } catch (SQLException e) {
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
         //Creating listerner for clicks
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> listBreakfast, View itemView, int position, long id) {
                 //pass the drink the user clicks on
+
 
                 Intent intent = new Intent(BreakfastCategoryActivity.this, BreakfastActivity.class);
                 intent.putExtra(BreakfastActivity.EXTRA_BREAKFASTID, (int) id);
@@ -101,7 +101,7 @@ public class BreakfastCategoryActivity extends AppCompatActivity {
 
                 int id = menuItem.getItemId();
 
-                if (id ==  R.id.action_favorite){
+                if (id == R.id.action_favorite) {
                     Intent favHome = new Intent(BreakfastCategoryActivity.this, FavoritesActivity.class);
                     BreakfastCategoryActivity.this.startActivity(favHome);
                     return true;
@@ -118,7 +118,7 @@ public class BreakfastCategoryActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy (){
+    public void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();

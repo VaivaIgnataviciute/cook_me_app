@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import  android.view.View;
-import  android.database.Cursor;
+import android.view.View;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -18,14 +19,13 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.CursorAdapter;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 
 public class FavoritesActivity extends AppCompatActivity {
 
     private SQLiteDatabase db;
-    private Cursor favoritesCursorBreakfast;
-    private Cursor favoritesCursorDinner;
-    private Cursor favoritesCursorDessert;
-    private Cursor favoritesCursorHealthy;
+    private Cursor favoritesCursor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,12 @@ public class FavoritesActivity extends AppCompatActivity {
         setupFavoritesListView();
 
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setTitle(null);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
 
-            toolbar.setLogo(R.mipmap.cookme_logo);
+        toolbar.setLogo(R.mipmap.cookme_logo);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -48,7 +48,7 @@ public class FavoritesActivity extends AppCompatActivity {
 
                 int id = menuItem.getItemId();
 
-                if (id ==R.id.action_home) {
+                if (id == R.id.action_home) {
                     Intent navHome = new Intent(FavoritesActivity.this, ActivityHome.class);
                     FavoritesActivity.this.startActivity(navHome);
                     return true;
@@ -67,109 +67,79 @@ public class FavoritesActivity extends AppCompatActivity {
         try {
             SQLiteOpenHelper CookmeappDatabaseHelper = new CookmeappDatabaseHelper(this);
             db = CookmeappDatabaseHelper.getReadableDatabase();
-            favoritesCursorBreakfast = db.query("BREAKFAST",
-                    new String[] {"_id", "NAME"},
+
+            ArrayList<String> list = new ArrayList<>();
+
+
+            //For screenshot clarity I will show only two tables examples
+
+            favoritesCursor = db.query("BREAKFAST",
+                    new String[]{"_id", "NAME"},
                     "FAVORITE=1",
-                    null,null,null,null);
+                    null, null, null, null);
 
-           /* favoritesCursorDinner = db.query("DINNER",
-                    new String[] {"_id", "NAME"},
+            while (favoritesCursor.moveToNext()) {
+                //get the name
+                String name = favoritesCursor.getString(favoritesCursor.getColumnIndex("NAME"));
+                list.add(name);
+
+            }
+            favoritesCursor.close();
+
+            favoritesCursor = db.query("DINNER",
+                    new String[]{"_id", "NAME"},
                     "FAVORITE=1",
-                    null,null,null,null);
+                    null, null, null, null);
 
-            favoritesCursorDessert = db.query("DESSERTS",
-                    new String[] {"_id", "NAME"},
+            while (favoritesCursor.moveToNext()) {
+                //get the name
+                String name = favoritesCursor.getString(favoritesCursor.getColumnIndex("NAME"));
+                list.add(name);
+            }
+
+            favoritesCursor = db.query("DESSERTS",
+                    new String[]{"_id", "NAME"},
                     "FAVORITE=1",
-                    null,null,null,null);
+                    null, null, null, null);
 
-            favoritesCursorHealthy = db.query("HEALTHY",
-                    new String[] {"_id", "NAME"},
+            while (favoritesCursor.moveToNext()) {
+                //get the name
+                String name = favoritesCursor.getString(favoritesCursor.getColumnIndex("NAME"));
+                list.add(name);
+            }
+
+            favoritesCursor = db.query("HEALTHY",
+                    new String[]{"_id", "NAME"},
                     "FAVORITE=1",
-                    null,null,null,null);
-              */
+                    null, null, null, null);
 
+            while (favoritesCursor.moveToNext()) {
+                //get the name
+                String name = favoritesCursor.getString(favoritesCursor.getColumnIndex("NAME"));
+                list.add(name);
 
+            }
 
-
-            CursorAdapter favoriteAdapterBreakfast = new SimpleCursorAdapter(FavoritesActivity.this, android.R.layout.simple_list_item_1,
-                    favoritesCursorBreakfast,
-                    new String[] {"NAME"},
-                    new int [] {android.R.id.text1},0);
-            listFavorites.setAdapter(favoriteAdapterBreakfast);
-
-           /* CursorAdapter favoriteAdapterDinner = new SimpleCursorAdapter(FavoritesActivity.this, android.R.layout.simple_list_item_1,
-                    favoritesCursorDinner,
-                    new String[] {"NAME"},
-                    new int [] {android.R.id.text1},0);
-            listFavorites.setAdapter(favoriteAdapterDinner);
-
-            CursorAdapter favoriteAdapterDesserts = new SimpleCursorAdapter(FavoritesActivity.this, android.R.layout.simple_list_item_1,
-                    favoritesCursorDessert,
-                    new String[] {"NAME"},
-                    new int [] {android.R.id.text1},0);
-            listFavorites.setAdapter(favoriteAdapterDesserts);
-
-            CursorAdapter favoriteAdapterHealthy = new SimpleCursorAdapter(FavoritesActivity.this, android.R.layout.simple_list_item_1,
-                    favoritesCursorHealthy,
-                    new String[] {"NAME"},
-                    new int [] {android.R.id.text1},0);
-            listFavorites.setAdapter(favoriteAdapterHealthy);
-           */
+            ArrayAdapter<String> favoriteAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+            listFavorites.setAdapter(favoriteAdapter);
 
 
         } catch (SQLiteException e) {
-            Toast toast = Toast.makeText(this, "Database unavailable",Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
 
 
-        //navigate to Breakfast activity if a drink is clicked
-
-        listFavorites.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intentBreakfast= new Intent(FavoritesActivity.this, BreakfastActivity.class);
-                intentBreakfast.putExtra(BreakfastActivity.EXTRA_BREAKFASTID,(int)id);
-                startActivity(intentBreakfast);
-
-                /*
-                Intent intentDinner= new Intent(FavoritesActivity.this, DinnerActivity.class);
-                intentDinner.putExtra(DinnerActivity.EXTRA_DINNERID,(int)id);
-                startActivity(intentDinner);
-
-                Intent intentDessert= new Intent(FavoritesActivity.this, DessertActivity.class);
-                intentDessert.putExtra(DessertActivity.EXTRA_DESSERTID,(int)id);
-                startActivity(intentDessert);
-
-                Intent intentHealthy= new Intent(FavoritesActivity.this, HealthyActivity.class);
-                intentHealthy.putExtra(HealthyActivity.EXTRA_HEALTHYID,(int)id);
-                startActivity(intentHealthy);
-                */
-            }
-        });
     }
+
 
     // Close the cursor and database in the Destroy() method
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        favoritesCursorBreakfast.close();
+        favoritesCursor.close();
         db.close();
-
-
-        /*
-        favoritesCursorDinner.close();
-        db.close();
-
-        favoritesCursorDessert.close();
-        db.close();
-
-
-        favoritesCursorHealthy.close();
-        db.close();
-        */
-
 
 
     }

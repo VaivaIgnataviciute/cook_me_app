@@ -9,29 +9,58 @@
         android:roundIcon="@mipmap/cookme_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavoritesActivity"></activity>
-        <activity android:name=".Healthy2Activity" />
-        <activity android:name=".Dessert2Activity" />
-        <activity android:name=".Dinner2CategoryActivity" />
-        <activity android:name=".Dinner2Activity" />
-        <activity android:name=".Breakfast2CategoryActivity" />
-        <activity android:name=".Breakfast2Activity" />
-        <activity android:name=".HealthyActivity" />
-        <activity android:name=".HealthyCategoryActivity" />
-        <activity android:name=".DessertCategoryActivity" />
-        <activity android:name=".DessertActivity" />
-        <activity android:name=".DinnerActivity" />
-        <activity android:name=".DinnerCategoryActivity" />
-        <activity android:name=".BreakfastActivity" />
-        <activity android:name=".BreakfastCategoryActivity" />
-        <activity android:name=".Intro">
-<intent-filter>
-    <action android:name="android.intent.action.MAIN" />
+        <activity
+            android:name=".FavoritesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Healthy2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".HealthyCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Dessert2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DessertActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DessertCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Dinner2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DinnerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DinnerCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Breakfast2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BreakfastActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+        <activity
+            android:name=".BreakfastCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Intro"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <category android:name="android.intent.category.LAUNCHER" />
-</intent-filter>
-</activity>
-<activity android:name=".ActivityHome" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ActivityHome"
+            android:screenOrientation="portrait" />
     </application>
 
-    </manifest>
+</manifest>

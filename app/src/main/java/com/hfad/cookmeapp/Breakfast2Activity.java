@@ -1,10 +1,14 @@
 package com.hfad.cookmeapp;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.SQLException;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -41,7 +45,7 @@ public class Breakfast2Activity extends AppCompatActivity {
         try {
             SQLiteDatabase db = CookmeappDatabaseHelper.getReadableDatabase();
             Cursor cursor = db.query("BREAKFAST",
-                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID","FAVORITE"},
+                    new String[]{"NAME", "DESCRIPTION", "IMAGE_RESOURCE_ID", "FAVORITE", "INSTRUCTIONS"},
                     "_id =?",
                     new String[]{Integer.toString(breakfast2Id)},
                     null, null, null);
@@ -55,6 +59,7 @@ public class Breakfast2Activity extends AppCompatActivity {
                 int photoIdBreakfast2 = cursor.getInt(2);
                 //if favorite column has a value of 1, this indicates a true value
                 boolean isFavorite = (cursor.getInt(3) == 1);
+                String instructionsTextBreakfast2 = cursor.getString(4);
 
                 //Populating the breakfast name
                 TextView name = findViewById(R.id.nameBreakfast2);
@@ -75,6 +80,9 @@ public class Breakfast2Activity extends AppCompatActivity {
 
                 CheckBox favorite = findViewById(R.id.favorite);
                 favorite.setChecked(isFavorite);
+
+                TextView instructions = findViewById(R.id.instructionsBreakfast2);
+                instructions.setText(instructionsTextBreakfast2);
             }
             cursor.close();
             db.close();
@@ -82,10 +90,35 @@ public class Breakfast2Activity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
+
+        //creating intents to launch activities for bottom navigation icons
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                int id = menuItem.getItemId();
+
+                if (id == R.id.action_favorite) {
+                    Intent favHome = new Intent(Breakfast2Activity.this, FavoritesActivity.class);
+                    Breakfast2Activity.this.startActivity(favHome);
+                    return true;
+                }
+
+                if (id == R.id.action_home) {
+                    Intent navHome = new Intent(Breakfast2Activity.this, ActivityHome.class);
+                    Breakfast2Activity.this.startActivity(navHome);
+                    return true;
+                }
+                return false;
+            }
+        });
+
     }
 
-    public void onFavoriteClicked (View view) {
-        int breakfast2Id =(Integer) getIntent().getExtras().get(EXTRA_BREAKFAST2ID);
+    public void onFavoriteClicked(View view) {
+        int breakfast2Id = (Integer) getIntent().getExtras().get(EXTRA_BREAKFAST2ID);
 
         //get the value of the checkbox
 
@@ -100,7 +133,7 @@ public class Breakfast2Activity extends AppCompatActivity {
         try {
             SQLiteDatabase db = CookmeappDatabaseHelper.getReadableDatabase();
 
-            db.update("BREAKFAST",breakfast2Values, "_id=?",new String[] {Integer.toString(breakfast2Id)});
+            db.update("BREAKFAST", breakfast2Values, "_id=?", new String[]{Integer.toString(breakfast2Id)});
             db.close();
 
         } catch (SQLException e) {

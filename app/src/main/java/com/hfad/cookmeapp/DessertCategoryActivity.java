@@ -16,9 +16,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import  android.database.sqlite.SQLiteException;
-import  android.database.sqlite.SQLiteOpenHelper;
-import  android.widget.SimpleCursorAdapter;
+import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
@@ -51,8 +51,8 @@ public class DessertCategoryActivity extends AppCompatActivity {
 
             //creating cursor
             cursor = db.query("DESSERTS",
-                    new String[]{"_id","NAME"},
-                    null,null,null,null,null);
+                    new String[]{"_id", "NAME"},
+                    null, null, null, null, null);
 
             Log.d("cursor", String.valueOf(cursor.getCount()));
 
@@ -60,7 +60,7 @@ public class DessertCategoryActivity extends AppCompatActivity {
             SimpleCursorAdapter listAdapter = new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"NAME"},
-                    new int[] {android.R.id.text1},
+                    new int[]{android.R.id.text1},
                     0);
 
             //set the adapter to the listview
@@ -70,7 +70,7 @@ public class DessertCategoryActivity extends AppCompatActivity {
 
         } catch (SQLException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            Log.d("DB",e.getMessage());
+            Log.d("DB", e.getMessage());
             toast.show();
         }
         //Creating listerner for clicks
@@ -102,7 +102,7 @@ public class DessertCategoryActivity extends AppCompatActivity {
 
                 int id = menuItem.getItemId();
 
-                if (id ==  R.id.action_favorite){
+                if (id == R.id.action_favorite) {
                     Intent favHome = new Intent(DessertCategoryActivity.this, FavoritesActivity.class);
                     DessertCategoryActivity.this.startActivity(favHome);
                     return true;
@@ -120,9 +120,9 @@ public class DessertCategoryActivity extends AppCompatActivity {
 
 
     @Override
-    public void onDestroy (){
+    public void onDestroy() {
         super.onDestroy();
-        if (cursor!=null)
+        if (cursor != null)
             cursor.close();
         db.close();
     }
